@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  web:
+    container_name: php
+    build:
+      context: ./
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - ./html:/var/www/html
+  db:
+    container_name: db
+    image: mysql:8.0
+    volumes:
+      - mysql-store:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306
+volumes:
+  mysql-store:
