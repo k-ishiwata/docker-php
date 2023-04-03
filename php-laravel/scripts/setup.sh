@@ -1,5 +1,6 @@
 #!/bin/sh
 
+mkdir ./html
 docker compose up -d
 docker compose exec web bash -c "cd /var/www/ && composer create-project --prefer-dist laravel/laravel laravel"
 docker compose exec web cp -rf /var/www/laravel/. /var/www/html/
